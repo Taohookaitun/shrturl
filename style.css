@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
+
+body,
+h1,
+h2,
+p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+table {
+    width: 100%;
+
+}
+
+table,
+th,
+td {
+    border: 3px solid #ff8080;
+    background-color: #ffcbcb;
+    color: #000000;
+    border-collapse: collapse
+}
+
+th,
+td {
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
+}
+
+table th {
+    background-color: #ffffff;
+}
+
+/* Apply styles to the body */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    background-color: #d7f8fc77;
+
+}
+
+
+/* Style the header */
+header {
+    color: #FBA1B7;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    image-orientation: 20px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+/* Style the main content */
+main {
+    color: #000000;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style for tab buttons */
+.tab-button {
+    background-color: #f69891;
+    border: none;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-style: normal;
+    color: #ffffff;
+    margin-bottom: 20px;
+    align-items: center;
+    list-style-type: none;
+    font-size: 50px;
+    border: 1px solid rgb(153, 153, 152);
+    border-radius: 10px;
+    border-top: 2px solid rgb(153, 150, 150);
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    /* ระยะห่างระหว่างปุ่ม */
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-button:hover {
+    background-color: #ccfcd3;
+    transform: scale(1.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Style for tab content */
+.tab-content {
+    padding: 20px;
+    display: none;
+}
+
+
+
+/* Style for the search container */
+.search-container {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Style for the search box */
+.search-box {
+    padding: 10px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+/* Style for the search button */
+.search-button {
+    background-color: #9cf491;
+    color: #050505;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none;
+    font: 1em sans-serif;
+    font-size: 20px;
+    font-family: 'Roboto';
+    margin: 1.5rem 0;
+
+}
+
+/* Hover effect for the search button */
+.search-button:hover {
+    background-color: #1b6711;
+}
+
+.readonly {
+    padding: 10px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+/* Style the sections */
+input {
+    margin: 1rem 0;
+}
+
+/* Style the footer */
+footer {
+    /* CSS สำหรับตรึง Footer ด้านล่าง */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffb4b4;
+    /* เปลี่ยนสีพื้นหลังตามที่คุณต้องการ */
+    color: #fff;
+    /* เปลี่ยนสีข้อความตามที่คุณต้องการ */
+    padding: 10px;
+    /* เพิ่ม padding หรือขนาดตามที่คุณต้องการ */
+    text-align: center;
+}
