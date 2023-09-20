@@ -1,3 +1,7 @@
+import express from 'express';
+
+const app = express();
+
 function openTab(tabName) {
   var tabcontent = document.getElementsByClassName("tab-content");
   for (var i = 0; i < tabcontent.length; i++) {

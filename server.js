@@ -50,9 +50,7 @@ app.post('/api/create-short-url', (req, res) => {
 });
 
 // เริ่มต้นเซิร์ฟเวอร์
-app.listen(port, () => {
-  console.log(`เซิร์ฟเวอร์ทำงานที่พอร์ต ${port}`);
-});
+
 app.get('/api/table-data', (req, res) => {
     // ทำการสอบคำขอข้อมูลจากตารางในฐานข้อมูล
     connection.query('SELECT * FROM shrturl', (error, results, fields) => {
@@ -64,6 +62,9 @@ app.get('/api/table-data', (req, res) => {
         // ส่งข้อมูลกลับไปยังหน้าเว็บในรูปแบบ JSON
         res.json(results);
     });
+  app.listen(port, () => {
+  console.log(`เซิร์ฟเวอร์ทำงานที่พอร์ต ${port}`);
+  });
 });
 
 function generateShortUrl() {
