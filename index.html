@@ -29,38 +29,37 @@
 
         <div class="tab-content" id="statistics_url">
             <h1>Statistics Short URL</h1>
-            <table id="table_stat" border="1">
-                <tr> <!-- แถวแรก -->
-                    <th>No.</th>
-                    <th>Original Url</th> <!-- เซลล์หัวข้อ -->
-                    <th>short Url</th>
-                    <th>Datetime</th>
-                    <th>IP</th>
-                </tr>
-                <tr> <!-- แถวที่ 2 -->
-                    <td></td> <!-- เซลล์ข้อมูล -->
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr> <!-- แถวที่ 3 -->
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr> <!-- แถวที่ 3 -->
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+        <!--  <table id="table_stat" border="1"> -->
+              <tr> <!-- แถวแรก -->
+            <!--       <th>No.</th>
+                  <th>Original Url</th> --><!-- เซลล์หัวข้อ -->
+            <!--      <th>short Url</th>-->
+            <!--       <th>Datetime</th>-->
+            <!--       <th>IP</th>-->
+            <!--   </tr> -->
+            <!--  <tr> --><!-- แถวที่ 2 -->
+            <!--      <td></td>--> <!-- เซลล์ข้อมูล -->
+            <!--       <td></td> -->
+            <!--       <td></td> -->
+            <!--   </tr>-->
+               <tr> <!-- แถวที่ 3 --> 
+            <!--       <td></td>-->
+            <!--      <td></td>-->
+            <!--      <td></td>-->
+            <!--   </tr>-->
+               <tr> <!-- แถวที่ 3 -->
+            <!--       <td></td>-->
+            <!--       <td></td>-->
+            <!--      <td></td>-->
+            <!--    </tr>-->
+            <!--   </table> -->
         </div>
         <div class="tab-content" id="shorturl">
             <h1>Short URL</h1>
             <!--ส่วนของ Short URL -->
             <form class="search-container" >
-                <input type="text" class="search-box" id="short-text" name="originalUrl"
-                    placeholder="www.original_your_url.com">
-                <output type="output" id="shortened-link" class="readonly" placeholder="Shorted URL" readonly>
+                <input type="text" class="search-box" id="short-text" name="originalUrl"placeholder="www.original_your_url.com">
+                <output type="output" id="shortened-link"  laceholder="Shorted URL"p readonly></output>
                 <p id="warning-message" style="color: red;"></p>
                 <button class="search-button" type="button" id="shorten">Shorten</button>
                 <button class="search-button" id="generate-qr">Generate QR Code</button>
@@ -68,53 +67,73 @@
                     <h2>QR Code</h2>
                     <div id="qrcode"></div>
             </form>
-            <script>
+           <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // ทำงานกับ DOM เมื่อหน้าเว็บโหลดเสร็จ
                 const originalUrlInput = document.getElementById("short-text");
                 const shortenedLinkOutput = document.getElementById("shortened-link");
                 const shortenButton = document.getElementById("shorten");
                 const warningMessage = document.getElementById("warning-message");
 
-
                 shortenButton.addEventListener("click", async () => {
+                    // โค้ดรวมถึงการโหลด URL และการส่งร้องขอ API ควรอยู่ในนี้
                     const originalUrl = originalUrlInput.value;
 
                     if (originalUrl.length === 0) {
                         warningMessage.textContent = 'Please enter URL.';
+                        shortenedLinkOutput.textContent = 'Error to short URL';
+                        shortenedLinkOutput.classList.add("hidden");
                     } else {
-                        console.log('success')
-                            }
-                        });
+                        // Fetch API และร้องขอ API ไปยังเซิร์ฟเวอร์ที่คุณสร้าง
+                        fetch('http://127.0.0.1:3000/api/create-short-url', {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                            },
+                            body: JSON.stringify({ originalUrl }),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.shortUrl) {
+                                    // ใช้ค่า shortUrl ที่ได้จากการส่งร้องขอ API
+                                    shortenedLinkOutput.textContent = 'Short URL: ' + data.shortUrl;
+                                    warningMessage.textContent = '';
+                                    shortenedLinkOutput.classList.remove("hidden");
+                                } else {
+                                    shortenedLinkOutput.textContent = 'Error to short URL';
+                                    warningMessage.textContent = 'Please try again.';
+                                    shortenedLinkOutput.classList.add("hidden");
+                                }
+                            })
 
-                        if (response.ok) {
-                            const data = await response.json();
-                            shortenedLinkInput.value = data.shortenedUrl;
-                            warningMessage.textContent = '';
-                        } else {
-                            warningMessage.textContent = 'Please try again.';
-                        }
-            </script>
-            <script>
-                // ...
-
-                // เมื่อผู้ใช้คลิกที่ปุ่ม "Generate QR Code"
-                const generateQrButton = document.getElementById("generate-qr");
-                generateQrButton.addEventListener("click", () => {
-                    // สร้าง QR Code และแสดง
-                    const qr = new QRCode(qrcodeDiv, {
-                        text: shortenedLinkInput.value,
-                        width: 128,
-                        height: 128,
-                    });
-                    qrcodeContainer.style.display = "block";
+                            .catch(error => {
+                                console.error('Error:', error);
+                                shortenedLinkOutput.textContent = 'Error to short URL';
+                                warningMessage.textContent = 'Please try again.';
+                                shortenedLinkOutput.classList.add("hidden");
+                            });
+                    }
                 });
-            </script>
+            });
+            function generateShortUrl() {
+                    // สร้างรหัสสุ่ม
+                    const randomCode = Math.random().toString(36).substring(2, 8);
+
+                    // นำรหัสสุ่มมาต่อกับ URL หลักเพื่อสร้าง Short URL
+                    const shortUrl = `http://taohoo.com/${randomCode}`;
+
+                    return shortUrl;
+                }
+        </script>
+
+
     </main>
 
     <footer>
         <p>&copy; 2023 My Website</p>
     </footer>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-    
+    <script src="app.js"></script>  
+    <script src="server.js"></script>
 </body>
-
 </html>

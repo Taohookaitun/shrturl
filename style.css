@@ -144,20 +144,24 @@ main {
     background-color: #1b6711;
 }
 
-.readonly {
-    padding: 10px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    outline: none;
-}
 
 /* Style the sections */
 input {
     margin: 1rem 0;
 }
 
+output{
+    color: #ff8080;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    
+}
+.hidden {
+    display: none;
+    /* ซ่อน output เมื่อมีคลาส "hidden" */
+}
 /* Style the footer */
 footer {
     /* CSS สำหรับตรึง Footer ด้านล่าง */
