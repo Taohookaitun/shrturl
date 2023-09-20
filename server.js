@@ -1,11 +1,13 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql2');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mysql from 'mysql2';
 
 const app = express();
-const port = 8080;
+const port = 3000;
+
 
 app.use(bodyParser.json());
+
 // กำหนดการเชื่อมต่อกับ MySQL
 const connection = mysql.createConnection({
   host: 'localhost',  // หรือที่อยู่ของ MySQL Server
@@ -27,16 +29,16 @@ connection.connect((err) => {
 // สร้าง Short URL
 app.post('/api/create-short-url', (req, res) => {
     const { originalUrl } = req.body;
-    
+  
 // ตรวจสอบว่า originalUrl ถูกส่งมาหรือไม่
   if (!originalUrl) {
-    return res.status(400).json({ error: 'กรุณาใส่ Original URL' });
+    return res.status(400).json({ error: '' });
   }
 
     // สร้าง Short URL และบันทึกลงในฐานข้อมูล
   const shortUrl = generateShortUrl(); // สร้าง Short URL ตามต้องการ
   const sql = 'INSERT INTO shrturl (original, short) VALUES (?, ?)';
-connection .query(sql, [originalUrl, shortUrl], (err, result) => {
+  connection .query(sql, [originalUrl, shortUrl], (err, result) => {
     if (err) {
       console.error('เกิดข้อผิดพลาดในการบันทึก Short URL:', err);
       return res.status(500).json({ error: 'เกิดข้อผิดพลาดในการบันทึก Short URL' });
@@ -50,17 +52,25 @@ connection .query(sql, [originalUrl, shortUrl], (err, result) => {
 app.listen(port, () => {
   console.log(`เซิร์ฟเวอร์ทำงานที่พอร์ต ${port}`);
 });
-
-// สร้าง API endpoint เพื่อดึงข้อมูลจากตาราง
 app.get('/api/table-data', (req, res) => {
-  // ทำการสอบคำขอข้อมูลจากตารางในฐานข้อมูล
-  connection.query('SELECT * FROM shrturl', (error, results, fields) => {
-    if (error) {
-      console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
-      return res.status(500).json({ error: 'เกิดข้อผิดพลาดในการดึงข้อมูล' });
-    }
-    
-    // ส่งข้อมูลกลับไปยังหน้าเว็บในรูปแบบ JSON
-    res.json(results);
-  });
+    // ทำการสอบคำขอข้อมูลจากตารางในฐานข้อมูล
+    connection.query('SELECT * FROM shrturl', (error, results, fields) => {
+        if (error) {
+            console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+            return res.status(500).json({ error: 'เกิดข้อผิดพลาดในการดึงข้อมูล' });
+        }
+
+        // ส่งข้อมูลกลับไปยังหน้าเว็บในรูปแบบ JSON
+        res.json(results);
+    });
 });
+
+function generateShortUrl() {
+    // สร้างรหัสสุ่ม
+    const randomCode = Math.random().toString(36).substring(2, 8);
+
+    // นำรหัสสุ่มมาต่อกับ URL หลักเพื่อสร้าง Short URL
+    const shortUrl = `http://taohoo.com/${randomCode}`;
+
+    return shortUrl;
+}
