@@ -32,8 +32,9 @@ app.post('/api/create-short-url', (req, res) => {
   
 // ตรวจสอบว่า originalUrl ถูกส่งมาหรือไม่
   if (!originalUrl) {
-    return res.status(400).json({ error: '' });
-  }
+  return res.status(400).json({ error: 'กรุณาใส่ Original URL' });
+}
+
 
     // สร้าง Short URL และบันทึกลงในฐานข้อมูล
   const shortUrl = generateShortUrl(); // สร้าง Short URL ตามต้องการ
@@ -74,3 +75,4 @@ function generateShortUrl() {
 
     return shortUrl;
 }
+connection.end();
